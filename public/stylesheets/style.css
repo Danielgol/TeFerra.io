@@ -1,0 +1,13 @@
+
+@font-face {
+  font-family: Arista;
+  src: url("./_fonts/Arista.ttf");
+}
+
+body {
+    background-color: #101010;
+}
+
+html {
+    overflow: hidden;
+}
