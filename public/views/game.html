@@ -10,6 +10,26 @@
     <table id="vidas" style="font-size: 30px"><tr><td>VIDAS:</td></tr></table>
 
     <script>
+
+      var socket;
+      socket = io.connect();
+
+      var user = {
+        nome: location.search.split('nome=')[1],
+        vidas: 3
+      }
+
+      socket.emit('new user', user);
+
+      socket.on('vidas', function(data){
+        var users = data;
+        var html = "<tr><td colspan=\"2\" style=\"text-align: center;\">VIDAS:</td></tr>";
+        for(i=0; i<users.length; i++){
+            html += "<tr><td class=\"name\">"+users[i].nome+" </td><td class=\"points\">: "+users[i].vidas+"</td></tr>";
+        }
+        document.getElementById('vidas').innerHTML = html;
+      });
+
     </script>
 
   </body>

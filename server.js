@@ -28,8 +28,21 @@ io.sockets.on('connection', function(socket){
 
   //New user
   socket.on('new user', function(data){
-    console.log('User %s: '+data.nome, connections.length);
+  	console.log('User %s: '+data.nome, connections.length);
     users.push(data);
+    sendUsers();
   });
+
+  //Disconnect
+  socket.on('disconnect', function(data){
+  	users.splice(connections.indexOf(socket), 1);
+    connections.splice(connections.indexOf(socket), 1);
+    console.log('Disconnected: %s sockets connected', connections.length);
+    sendUsers();
+  });
+
+  function sendUsers(){
+  	io.sockets.emit('vidas', users.slice());
+  }
   
 });
