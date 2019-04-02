@@ -7,7 +7,27 @@
 
   <body>
 
-    <table id="vidas" style="font-size: 30px"><tr><td>VIDAS:</td></tr></table>
+    <table style="font-size: 30px"><tr><td>Te F@%#.io</td></tr></table>
+    <table border="1" id="vidas" style="font-size: 30px"><tr><td>VIDAS:</td></tr></table>
+    <table style="font-size: 30px"><tr><td>RODADA: 1</td></tr></table>
+
+    <table border="1" id="cards" style="color: black; position: absolute; top: 70%; left: 50%; transform: translate(-50%, -19%);">
+      <tr><td colspan="5" style="color: black; font-size: 50px; text-align: center;">CARDS:</td></tr>
+      <tr>
+        <td>K ♥</td>
+        <td>8 ♢</td>
+        <td>J ♧</td>
+        <td>A ♤</td>
+        <td>10 ♤</td>
+      </tr>
+      <tr>
+        <td><input type="button" value="jogar"></td>
+        <td><input type="button" value="jogar"></td>
+        <td><input type="button" value="jogar"></td>
+        <td><input type="button" value="jogar"></td>
+        <td><input type="button" value="jogar"></td>
+      </tr>
+    </table>
 
     <script>
 
@@ -19,16 +39,27 @@
         vidas: 3
       }
 
+      var cards = {};
+
       socket.emit('new user', user);
 
       socket.on('vidas', function(data){
         var users = data;
         var html = "<tr><td colspan=\"2\" style=\"text-align: center;\">VIDAS:</td></tr>";
         for(i=0; i<users.length; i++){
-            html += "<tr><td class=\"name\">"+users[i].nome+" </td><td class=\"points\">: "+users[i].vidas+"</td></tr>";
+            html += "<tr><td class=\"name\">"+users[i].nome+": "+users[i].vidas+"</td><td>VEZ</td></tr>";
         }
         document.getElementById('vidas').innerHTML = html;
       });
+
+      //socket.on('start', function(data){
+      //  cards = data;
+      //  var html = "<tr><td colspan=\"2\" style=\"text-align: center;\">CARDS:</td></tr>";
+      //  for(i=0; i<users.length; i++){
+      //      html += "<tr><td class=\"name\">"+users[i].nome+" </td><td class=\"points\">: "+users[i].vidas+"</td></tr>";
+      //  }
+      //  document.getElementById('cards').innerHTML = html;
+      //});
 
     </script>
 
