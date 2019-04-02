@@ -42,7 +42,7 @@ io.sockets.on('connection', function(socket){
   });
 
   function sendUsers(){
-  	io.sockets.emit('vidas', users.slice());
+  	io.sockets.emit('users', users.slice());
   }
   
 });

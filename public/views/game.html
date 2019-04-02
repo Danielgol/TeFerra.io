@@ -9,9 +9,28 @@
 
     <table style="font-size: 30px"><tr><td>Te F@%#.io</td></tr></table>
     <table border="1" id="vidas" style="font-size: 30px"><tr><td>VIDAS:</td></tr></table>
-    <table style="font-size: 30px"><tr><td>RODADA: 1</td></tr></table>
+    <table border="1" id="start" style="font-size: 30px"><tr><td><input type="button" value="COMEÇAR" onclick="start();"></td></tr></table>
+    <!-- <table style="font-size: 30px"><tr><td>RODADA: 1</td></tr></table> -->
 
-    <table border="1" id="cards" style="color: black; position: absolute; top: 70%; left: 50%; transform: translate(-50%, -19%);">
+    <table border="1" id="jogo" style="color: black; position: absolute; top: 17%; left: 50%; transform: translate(-50%, -19%);">
+      <tr>
+        <td>MAIOR</td><td>QUANT</td>
+        <th rowspan="13" style="color: black; font-size: 50px; text-align: center;">MAIOR: A ♤</th></tr>
+        <tr><td>3</td><td>QUANT</td></tr>
+        <tr><td>2</td><td>QUANT</td></tr>
+        <tr><td>A</td><td>QUANT</td></tr>
+        <tr><td>K</td><td>QUANT</td></tr>
+        <tr><td>Q</td><td>QUANT</td></tr>
+        <tr><td>J</td><td>QUANT</td></tr>
+        <tr><td>10</td><td>QUANT</td></tr>
+        <tr><td>9</td><td>QUANT</td></tr>
+        <tr><td>8</td><td>QUANT</td></tr>
+        <tr><td>7</td><td>QUANT</td></tr>
+        <tr><td>6</td><td>QUANT</td></tr>
+        <tr><td>5</td><td>QUANT</td></tr>
+    </table>
+
+    <table border="1" id="mycards" style="color: black; position: absolute; top: 70%; left: 50%; transform: translate(-50%, -19%);">
       <tr><td colspan="5" style="color: black; font-size: 50px; text-align: center;">CARDS:</td></tr>
       <tr>
         <td>K ♥</td>
@@ -33,18 +52,18 @@
 
       var socket;
       socket = io.connect();
-
+      
       var user = {
         nome: location.search.split('nome=')[1],
         vidas: 3
       }
 
       var chute = 0;
-      var cards = {};
+      var mycards = [];
 
-      socket.emit('new user', user);
+      //SOCKETS GET
 
-      socket.on('vidas', function(data){
+      socket.on('users', function(data){
         var users = data;
         var html = "<tr><td colspan=\"2\" style=\"text-align: center;\">VIDAS:</td></tr>";
         for(i=0; i<users.length; i++){
@@ -53,26 +72,33 @@
         document.getElementById('vidas').innerHTML = html;
       });
 
-      function jogar(){
-        //if(a vez eh minha){
-        var html = "<tr><td colspan=\"4\" style=\"text-align: center;\">CARDS:</td></tr><tr>";
-        for(i=0; i<4; i++){
-            html += "<td>"+cards+"[i]</td>";
-        }
-        html+="</td>";
-        document.getElementById('cards').innerHTML = html;
-        //  socket.emit('jogada', card);
-        //}
-      }
-
       //socket.on('start', function(data){
-      //  cards = data;
+      //  mycards = data;
       //  var html = "<tr><td colspan=\"2\" style=\"text-align: center;\">CARDS:</td></tr>";
       //  for(i=0; i<users.length; i++){
       //      html += "<tr><td class=\"name\">"+users[i].nome+" </td><td class=\"points\">: "+users[i].vidas+"</td></tr>";
       //  }
       //  document.getElementById('cards').innerHTML = html;
       //});
+
+      //SOCKETS EMIT
+
+      function start(){
+        socket.emit('new user', user);
+        document.getElementById('start').style.visibility="hidden";
+      }
+
+      function jogar(){
+        //if(a vez eh minha){
+        var html = "<tr><td colspan=\"4\" style=\"text-align: center;\">CARDS:</td></tr><tr>";
+        for(i=0; i<4; i++){
+            html += "<td>"+mycards+"[i]</td>";
+        }
+        html+="</td>";
+        document.getElementById('mycards').innerHTML = html;
+        //  socket.emit('jogada', card);
+        //}
+      }
 
     </script>
 
