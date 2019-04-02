@@ -21,11 +21,11 @@
         <td>10 ♤</td>
       </tr>
       <tr>
-        <td><input type="button" value="jogar"></td>
-        <td><input type="button" value="jogar"></td>
-        <td><input type="button" value="jogar"></td>
-        <td><input type="button" value="jogar"></td>
-        <td><input type="button" value="jogar"></td>
+        <td><input type="button" value="jogar" onclick="jogar();"></td>
+        <td><input type="button" value="jogar" onclick="jogar();"></td>
+        <td><input type="button" value="jogar" onclick="jogar();"></td>
+        <td><input type="button" value="jogar" onclick="jogar();"></td>
+        <td><input type="button" value="jogar" onclick="jogar();"></td>
       </tr>
     </table>
 
@@ -39,6 +39,7 @@
         vidas: 3
       }
 
+      var chute = 0;
       var cards = {};
 
       socket.emit('new user', user);
@@ -51,6 +52,18 @@
         }
         document.getElementById('vidas').innerHTML = html;
       });
+
+      function jogar(){
+        //if(a vez eh minha){
+        var html = "<tr><td colspan=\"4\" style=\"text-align: center;\">CARDS:</td></tr><tr>";
+        for(i=0; i<4; i++){
+            html += "<td>"+cards+"[i]</td>";
+        }
+        html+="</td>";
+        document.getElementById('cards').innerHTML = html;
+        //  socket.emit('jogada', card);
+        //}
+      }
 
       //socket.on('start', function(data){
       //  cards = data;
