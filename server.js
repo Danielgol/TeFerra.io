@@ -20,3 +20,16 @@ app.get('/', function(req, res){
 app.get('/game', function(req, res){
   res.sendFile(__dirname + '/public/views/game.html');
 });
+
+io.sockets.on('connection', function(socket){
+
+  connections.push(socket);
+  console.log('New Connection: '+socket.id);
+
+  //New user
+  socket.on('new user', function(data){
+    console.log('User %s: '+data.nome, connections.length);
+    users.push(data);
+  });
+  
+});
