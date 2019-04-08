@@ -14,37 +14,81 @@
 
     <table border="1" id="jogo" style="color: black; position: absolute; top: 17%; left: 50%; transform: translate(-50%, -19%);">
       <tr>
-        <td>MAIOR</td><td>QUANT</td>
+        <td>MAIOR</td><td>0</td>
         <th rowspan="13" style="color: black; font-size: 50px; text-align: center;">MAIOR: A ♤</th></tr>
-        <tr><td>3</td><td>QUANT</td></tr>
-        <tr><td>2</td><td>QUANT</td></tr>
-        <tr><td>A</td><td>QUANT</td></tr>
-        <tr><td>K</td><td>QUANT</td></tr>
-        <tr><td>Q</td><td>QUANT</td></tr>
-        <tr><td>J</td><td>QUANT</td></tr>
-        <tr><td>10</td><td>QUANT</td></tr>
-        <tr><td>9</td><td>QUANT</td></tr>
-        <tr><td>8</td><td>QUANT</td></tr>
-        <tr><td>7</td><td>QUANT</td></tr>
-        <tr><td>6</td><td>QUANT</td></tr>
-        <tr><td>5</td><td>QUANT</td></tr>
+        <tr><td>3</td><td>0</td></tr>
+        <tr><td>2</td><td>0</td></tr>
+        <tr><td>A</td><td>0</td></tr>
+        <tr><td>K</td><td>0</td></tr>
+        <tr><td>Q</td><td>0</td></tr>
+        <tr><td>J</td><td>0</td></tr>
+        <tr><td>10</td><td>0</td></tr>
+        <tr><td>9</td><td>0</td></tr>
+        <tr><td>8</td><td>0</td></tr>
+        <tr><td>7</td><td>0</td></tr>
+        <tr><td>6</td><td>0</td></tr>
+        <tr><td>5</td><td>0</td></tr>
     </table>
 
     <table border="1" id="mycards" style="color: black; position: absolute; top: 70%; left: 50%; transform: translate(-50%, -19%);">
       <tr><td colspan="5" style="color: black; font-size: 50px; text-align: center;">CARDS:</td></tr>
       <tr>
-        <td>K ♥</td>
-        <td>8 ♢</td>
-        <td>J ♧</td>
-        <td>A ♤</td>
-        <td>10 ♤</td>
-      </tr>
-      <tr>
-        <td><input type="button" value="jogar" onclick="jogar();"></td>
-        <td><input type="button" value="jogar" onclick="jogar();"></td>
-        <td><input type="button" value="jogar" onclick="jogar();"></td>
-        <td><input type="button" value="jogar" onclick="jogar();"></td>
-        <td><input type="button" value="jogar" onclick="jogar();"></td>
+
+        <td id="pri">
+          <table>
+            <tr>
+              <td>K ♥</td>
+            </tr>
+            <tr>
+              <td><input type="button" value="jogar"></td>
+            </tr>
+          </table>
+        </td>
+
+        <td id="seg">
+          <table>
+            <tr>
+              <td>8 ♢</td>
+            </tr>
+            <tr>
+              <td><input type="button" value="jogar"></td>
+            </tr>
+          </table>
+        </td>
+
+        <td id="ter">
+          <table>
+            <tr>
+              <td>J ♧</td>
+            </tr>
+            <tr>
+              <td><input type="button" value="jogar"></td>
+            </tr>
+          </table>
+        </td>
+
+        <td id="qua">
+          <table>
+            <tr>
+              <td>A ♤</td>
+            </tr>
+            <tr>
+              <td><input type="button" value="jogar"></td>
+            </tr>
+          </table>
+        </td>
+
+        <td id="qui">
+          <table>
+            <tr>
+              <td>10 ♤</td>
+            </tr>
+            <tr>
+              <td><input type="button" value="jogar"></td>
+            </tr>
+          </table>
+        </td>
+        
       </tr>
     </table>
 
@@ -60,6 +104,12 @@
 
       var chute = 0;
       var mycards = [];
+
+      mycards.push("K ♥");
+      mycards.push("8 ♢");
+      mycards.push("J ♧");
+      mycards.push("A ♤");
+      mycards.push("10 ♤");
 
       //SOCKETS GET
 
@@ -88,15 +138,18 @@
         document.getElementById('start').style.visibility="hidden";
       }
 
-      function jogar(){
+      function jogar(id){
         //if(a vez eh minha){
-        var html = "<tr><td colspan=\"4\" style=\"text-align: center;\">CARDS:</td></tr><tr>";
-        for(i=0; i<4; i++){
-            html += "<td>"+mycards+"[i]</td>";
+        document.getElementById(id).style.visibility="hidden";
+        mycards.splice(mycards.lastIndexOf("A ♤"), 1);
+        var html = "<tr><td colspan=\""+mycards.length+"\" style=\"text-align: center;\">CARDS:</td></tr><tr>";
+        for(i=0; i<mycards.length; i++){
+            html += "<td>"+mycards[i]+"</td>";
         }
         html+="</td>";
         document.getElementById('mycards').innerHTML = html;
-        //  socket.emit('jogada', card);
+        //  socket.emit('jogada', card[i]);
+        //  mycards.pop(card); não lembro se é pop (tirar)
         //}
       }
 
